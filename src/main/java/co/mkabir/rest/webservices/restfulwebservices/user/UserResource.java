@@ -30,18 +30,19 @@ public class UserResource {
 	@GetMapping("/users/{id}")
 	public User retrieveUser(@PathVariable Integer id) {
 
-		return service.findUser(id);
+		return service.findOne(id);
 	}
 
 	// POST /users
 	@PostMapping("/users")
 	public ResponseEntity<User> createUser(@RequestBody User user) {
-		User saveduser=service.save(user);
-		//creating the url for the newly created user
+		User saveduser = service.save(user);
+		// creating the url for the newly created user
 		URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest()
 				.path("/{id}")
-				.buildAndExpand(saveduser.getId()).toUri();
+				.buildAndExpand(saveduser.getId())
+				.toUri();
 		return ResponseEntity.created(location).build();
 	}
 }

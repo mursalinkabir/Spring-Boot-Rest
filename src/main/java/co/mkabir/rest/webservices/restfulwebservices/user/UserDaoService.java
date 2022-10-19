@@ -26,9 +26,12 @@ public class UserDaoService {
 		return users;
 	}
 
-	public User findUser(Integer id) {
+	public User findOne(int id) {
 
 		User userfind = users.stream().filter(usr -> usr.getId() == id).findFirst().orElse(null);
+		if (userfind == null) {
+			throw new UserNotFoundException("id:"+id);
+		}
 		return userfind;
 	}
 	public User save(User user) {
