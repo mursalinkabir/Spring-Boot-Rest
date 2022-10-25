@@ -34,6 +34,17 @@ public class UserDaoService {
 		}
 		return userfind;
 	}
+	
+	public void deleteById(int id) {
+
+		User userfind = users.stream().filter(usr -> usr.getId() == id).findFirst().orElse(null);
+		if (userfind == null) {
+			throw new UserNotFoundException("id:"+id);
+		}
+		users.remove(userfind);
+		
+	}
+	
 	public User save(User user) {
 		user.setId(++usersCount);
 		users.add(user);
